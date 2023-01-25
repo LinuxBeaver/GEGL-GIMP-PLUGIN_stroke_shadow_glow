@@ -1,0 +1,9 @@
+median-blur radius=1  alpha-percentile=0
+id=1
+gegl:dropshadow x=0  y=0 radius=1 grow-shape=circle grow-radius=10
+gimp:layer-mode layer-mode=split  aux=[  ref=1  ]
+color-overlay value=#ffffff
+svg:src-atop aux=[   layer src=  gaussian-blur std-dev-x=0 std-dev-y=0  ]
+opacity value=2
+hue-chroma hue=0
+
