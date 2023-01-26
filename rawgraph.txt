@@ -1,3 +1,4 @@
+opacity value=1.5
 median-blur radius=1  alpha-percentile=0
 id=1
 gegl:dropshadow x=0  y=0 radius=1 grow-shape=circle grow-radius=10
