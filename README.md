@@ -1,3 +1,13 @@
+Location to put Binaries
+Windows
+C:\Users\AppData\Local\gegl-0.4\plug-ins
+
+Linux
+/home/(USERNAME)/.local/share/gegl-0.4/plug-ins
+
+Linux (Flatpak)
+/home/(USERNAME)/.var/app/org.gimp.GIMP/data/gegl-0.4/plug-ins
+
 ![image preview](preview2.png  )
 ![image preview](oo.png  )
 ## Compiling and Installing
