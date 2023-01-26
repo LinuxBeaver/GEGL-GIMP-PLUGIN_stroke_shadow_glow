@@ -83,6 +83,12 @@ property_double (opacity, _("Opacity"), 2)
   ui_steps      (0.0, 4.0)
 ui_meta     ("role", "output-extent")
 
+property_double (hopacity, _("Opacity"), 1.5)
+  value_range   (0.0, 4.0)
+  ui_steps      (0.0, 4.0)
+ui_meta     ("role", "output-extent")
+
+
 property_double  (alpha_percentile, _("Alpha percentile"), 0)
   value_range (0, 100)
   description (_("Neighborhood alpha percentile"))
@@ -134,7 +140,7 @@ property_double (hue, _("Hue Rotation for everything - will over ride original c
 static void attach (GeglOperation *operation)
 {
   GeglNode *gegl = operation->node;
-  GeglNode *input, *output, *median, *blur, *id1, *ssg, *xor, *color, *atop, *image, *blur2, *opacity, *hue;
+  GeglNode *input, *output, *median, *blur, *id1, *hopacity, *ssg, *xor, *color, *atop, *image, *blur2, *opacity, *hue;
 
 
   input    = gegl_node_get_input_proxy (gegl, "input");
@@ -185,6 +191,11 @@ static void attach (GeglOperation *operation)
                                   "operation", "gegl:hue-chroma",
                                   NULL);
 
+  hopacity    = gegl_node_new_child (gegl,
+                                  "operation", "gegl:opacity",
+                                  NULL);
+
+
 xor = gegl_node_new_child (gegl,
                               "operation", "gimp:layer-mode", "layer-mode", 60, NULL);
 
@@ -192,6 +203,7 @@ xor = gegl_node_new_child (gegl,
   gegl_operation_meta_redirect (operation, "color", ssg, "color");
   gegl_operation_meta_redirect (operation, "opacity", ssg, "value");
   gegl_operation_meta_redirect (operation, "opacityssg", opacity, "value");
+  gegl_operation_meta_redirect (operation, "hopacity", hopacity, "value");
   gegl_operation_meta_redirect (operation, "stroke", ssg, "grow-radius");
   gegl_operation_meta_redirect (operation, "blurstroke", ssg, "radius");
   gegl_operation_meta_redirect (operation, "x", ssg, "x");
@@ -209,7 +221,7 @@ xor = gegl_node_new_child (gegl,
 
 
 
-  gegl_node_link_many (input, median, blur, id1, ssg, xor, color, atop, opacity, hue, output, NULL);
+  gegl_node_link_many (input, hopacity, median, blur, id1, ssg, xor, color, atop, opacity, hue, output, NULL);
   gegl_node_link_many (image, blur2, NULL);
   gegl_node_connect_from (xor, "aux", id1, "output");
   gegl_node_connect_from (atop, "aux", blur2, "output");
