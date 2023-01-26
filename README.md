@@ -1,4 +1,4 @@
-##Location to put Binaries
+### Location to put Binaries
 
 Windows
 C:\Users\AppData\Local\gegl-0.4\plug-ins
