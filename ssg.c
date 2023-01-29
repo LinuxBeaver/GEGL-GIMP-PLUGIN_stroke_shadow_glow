@@ -114,18 +114,18 @@ property_file_path(image, _("Image file overlay"), "")
 
 
 property_double (blur2, _("Blur Image file Overlay"), 0.0)
-   description  (_("A light blur to smooth the rough edges"))
+   description  (_("A light blur to smooth the image file overlay"))
   value_range (0, 40.0)
   ui_range (0, 40.0)
   ui_gamma (1.5)
 
-property_double (opacityssg, _("Opacity for everything"), 2)
+property_double (hue, _("Hue Rotation for Image file overlay"),  0.0)
+   description  (_("Color rotation that adjust the image file'"))
+   value_range  (-180.0, 180.0)
+
+property_double (opacityssg, _("Opacity"), 2)
   value_range   (0.0, 4.0)
   ui_steps      (0.0, 4.0)
-
-property_double (hue, _("Hue Rotation for everything - will over ride original color"),  0.0)
-   description  (_("Color rotation that adjust all GEGL nodes below it'"))
-   value_range  (-180.0, 180.0)
 
 
 
@@ -221,8 +221,8 @@ xor = gegl_node_new_child (gegl,
 
 
 
-  gegl_node_link_many (input, hopacity, median, blur, id1, ssg, xor, color, atop, opacity, hue, output, NULL);
-  gegl_node_link_many (image, blur2, NULL);
+  gegl_node_link_many (input, hopacity, median, blur, id1, ssg, xor, color, atop, opacity, output, NULL);
+  gegl_node_link_many (image, hue, blur2, NULL);
   gegl_node_connect_from (xor, "aux", id1, "output");
   gegl_node_connect_from (atop, "aux", blur2, "output");
 
