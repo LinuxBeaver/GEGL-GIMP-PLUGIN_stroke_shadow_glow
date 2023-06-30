@@ -22,6 +22,20 @@
 
 #ifdef GEGL_PROPERTIES
 
+/*
+June 25 2023 - Recreation of SSG's GEGL Graph. If you feed this info to Gimp's
+GEGL Graph it will allow to to text the plugin without installing it.
+
+id=1
+opacity value=1.5
+median-blur alpha-percentile=0 radius=1 
+gaussian-blur std-dev-x=1 std-dev-y=1
+dropshadow x=0 y=0 radius=0 grow-radius=9 opacity=2
+xor aux=[ ref=1 ]
+color-overlay value=#ffffff
+id=2 src-atop aux=[ ref=2 layer gaussian-blur std-dev-x=0 std-dev-y=0 ]
+ */
+
 
 /* Should correspond to GeglMedianBlurNeighborhood in median-blur.c */
 enum_start (gegl_stroke_grow_shape2)
@@ -36,9 +50,6 @@ property_enum   (grow_shape, _("Grow shape"),
   description   (_("The shape to expand or contract the stroke in"))
 
 
-
-property_color (color, _("Color"), "#000000")
-    ui_meta     ("role", "output-extent")
 
 property_color (colorssg, _("Color Overlay"), "#ffffff")
 
@@ -78,34 +89,11 @@ property_double (stroke, _("Grow radius of SSG"), 9.0)
   description (_("The distance to expand the stroke/shadow before blurring; a negative value will contract the shadow instead"))
 
 
-property_double (opacity, _("Opacity"), 2)
-  value_range   (0.0, 4.0)
-  ui_steps      (0.0, 4.0)
-ui_meta     ("role", "output-extent")
-
-property_double (hopacity, _("Opacity"), 1.5)
-  value_range   (0.0, 4.0)
-  ui_steps      (0.0, 4.0)
-ui_meta     ("role", "output-extent")
-
-
-property_double  (alpha_percentile, _("Alpha percentile"), 0)
-  value_range (0, 100)
-  description (_("Neighborhood alpha percentile"))
-    ui_meta     ("role", "output-extent")
 
 property_int  (radius, _("Make the SSG go inward or outward"), 1)
   value_range (-250, 10)
   ui_range    (0, 2)
   description (_("Hidden Settings are meant for Graphs and removing edge pixels with the erase or split blend mode"))
-
-
-property_double (blur, _("Smooth SSG"), 0.0)
-   description  (_("A light blur to smooth the rough edges"))
-  value_range (0, 1.5)
-  ui_range (0, 1.5)
-  ui_gamma (3.5)
-    ui_meta     ("role", "output-extent")
 
 
 property_file_path(image, _("Image file overlay"), "")
@@ -141,6 +129,7 @@ static void attach (GeglOperation *operation)
 {
   GeglNode *gegl = operation->node;
   GeglNode *input, *output, *median, *blur, *id1, *hopacity, *ssg, *xor, *color, *atop, *image, *blur2, *opacity, *hue;
+  GeglColor *ssg_hidden_color = gegl_color_new ("#000000");
 
 
   input    = gegl_node_get_input_proxy (gegl, "input");
@@ -163,20 +152,21 @@ static void attach (GeglOperation *operation)
                                   NULL);
 
   opacity   = gegl_node_new_child (gegl,
-                                  "operation", "gegl:opacity",
+                                  "operation", "gegl:opacity",  "value", 2.0,
                                   NULL);
 
  
    median   = gegl_node_new_child (gegl,
-                                  "operation", "gegl:median-blur",
+                                  "operation", "gegl:median-blur", "alpha-percentile", 0.0,
                                   NULL);
 
  ssg    = gegl_node_new_child (gegl,
                                   "operation", "gegl:dropshadow",
-                                  NULL);
+                                   "color", ssg_hidden_color, NULL);
+            
 
  blur    = gegl_node_new_child (gegl,
-                                  "operation", "gegl:gaussian-blur",
+                                  "operation", "gegl:gaussian-blur", "std-dev-x", 0.5, "std-dev-y", 0.5,
                                   NULL);
 
  blur2    = gegl_node_new_child (gegl,
@@ -192,7 +182,7 @@ static void attach (GeglOperation *operation)
                                   NULL);
 
   hopacity    = gegl_node_new_child (gegl,
-                                  "operation", "gegl:opacity",
+                                  "operation", "gegl:opacity", "value", 1.5,
                                   NULL);
 
 
@@ -200,24 +190,17 @@ xor = gegl_node_new_child (gegl,
                               "operation", "gimp:layer-mode", "layer-mode", 60, NULL);
 
   gegl_operation_meta_redirect (operation, "colorssg", color, "value");
-  gegl_operation_meta_redirect (operation, "color", ssg, "color");
-  gegl_operation_meta_redirect (operation, "opacity", ssg, "value");
   gegl_operation_meta_redirect (operation, "opacityssg", opacity, "value");
-  gegl_operation_meta_redirect (operation, "hopacity", hopacity, "value");
   gegl_operation_meta_redirect (operation, "stroke", ssg, "grow-radius");
   gegl_operation_meta_redirect (operation, "blurstroke", ssg, "radius");
   gegl_operation_meta_redirect (operation, "x", ssg, "x");
   gegl_operation_meta_redirect (operation, "y", ssg, "y");
   gegl_operation_meta_redirect (operation, "grow_shape", ssg, "grow-shape");
-  gegl_operation_meta_redirect (operation, "alpha_percentile", median, "alpha-percentile");
-  gegl_operation_meta_redirect (operation, "radius", median, "radius");
   gegl_operation_meta_redirect (operation, "image", image, "src");
   gegl_operation_meta_redirect (operation, "hue", hue, "hue");
-  gegl_operation_meta_redirect (operation, "blur", blur, "std-dev-x");
-  gegl_operation_meta_redirect (operation, "blur", blur, "std-dev-y");
   gegl_operation_meta_redirect (operation, "blur2", blur2, "std-dev-x");
   gegl_operation_meta_redirect (operation, "blur2", blur2, "std-dev-y");
-
+  gegl_operation_meta_redirect (operation, "radius", median, "radius");
 
 
 
