@@ -48,6 +48,6 @@ Then build the same way you would on Linux:
 meson setup --buildtype=release build
 ninja -C build
 ```
-
-
+## Extra image preview of this plugin in GEGL Graph mode. 
+![image preview](preview3.png  )
 
