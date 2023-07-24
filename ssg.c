@@ -231,6 +231,8 @@ gegl_op_class_init (GeglOpClass *klass)
     "reference-hash", "3ado316vg22a00x03vv5sb2ac",
     "description", _("Make a duplicate layer of image you want to apply SSG to, then apply SSG to the top or bottom duplicate layer. SSG is an enhanced fork of the drop shadow filter that starts as a outline, knocks out the original image and allows image file overlays.  "
                      ""),
+    "gimp:menu-path", "<Image>/Filters/Text Styling",
+    "gimp:menu-label", _("Stroke Shadow Glow (SSG)..."),
     NULL);
 }
 
