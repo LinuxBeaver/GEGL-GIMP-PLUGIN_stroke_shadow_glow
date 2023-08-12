@@ -51,3 +51,7 @@ ninja -C build
 ## Extra image preview of this plugin in GEGL Graph mode. 
 ![image preview](preview3.png  )
 
+## Example of SSG inside a complex GEGL Graph being blended by Linear Light. Also the theme is "meaty text" 
+The point of this image is to show that SSG is capable of being fused by blend modes inside GEGL Graphs. Normal Drop Shadow is NOT capable of doing this.
+The meat text is just for fun. Credit goes to Mr.bunnyLamakins for partially discovering this meat text GEGL Graph.
+![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/0c147e54-3919-4c88-b253-cb678f8e43d8)
