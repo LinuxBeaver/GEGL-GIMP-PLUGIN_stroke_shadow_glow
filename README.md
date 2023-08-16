@@ -1,4 +1,4 @@
-![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/5482ec26-b420-402b-ad56-cfa5f5065a7c)
+
 
 ### Location to put Binaries
 
@@ -13,7 +13,8 @@ Linux (Flatpak)
 
 ![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/ea6533f0-8716-4d5b-99fc-10daa152201a)
 
-![image preview](oo.png  )
+![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/5482ec26-b420-402b-ad56-cfa5f5065a7c)
+
 ## Compiling and Installing
 
 ### Linux
