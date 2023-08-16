@@ -1,3 +1,4 @@
+![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/5482ec26-b420-402b-ad56-cfa5f5065a7c)
 
 ### Location to put Binaries
 
