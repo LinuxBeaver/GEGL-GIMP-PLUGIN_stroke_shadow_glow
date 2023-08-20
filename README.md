@@ -11,6 +11,9 @@ Linux
 Linux (Flatpak)
 /home/(USERNAME)/.var/app/org.gimp.GIMP/data/gegl-0.4/plug-ins
 
+![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/504a464c-5aca-4f0e-9ba7-7dd6ed7a2292)
+
+
 ![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/ea6533f0-8716-4d5b-99fc-10daa152201a)
 
 ![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/5482ec26-b420-402b-ad56-cfa5f5065a7c)
