@@ -2,14 +2,15 @@
 
 ### Location to put Binaries
 
-Windows
+**Windows**
 C:\Users\USERNAME\AppData\Local\gegl-0.4\plug-ins
 
-Linux
-/home/(USERNAME)/.local/share/gegl-0.4/plug-ins
+**Linux**
+`~/.local/share/gegl-0.4/plug-ins`
 
-Linux (Flatpak)
-/home/(USERNAME)/.var/app/org.gimp.GIMP/data/gegl-0.4/plug-ins
+**Linux (Flatpak)**
+
+`~/.var/app/org.gimp.GIMP/data/gegl-0.4/plug-ins`
 
 ![image](https://github.com/LinuxBeaver/GEGL-SSG-Stroke-Shadow-Glow-/assets/78667207/504a464c-5aca-4f0e-9ba7-7dd6ed7a2292)
 
